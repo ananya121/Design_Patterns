@@ -1,22 +1,34 @@
 package com.java.designpattern.singleton;
 
-//Eager Initialization
+//Static block  Initialization
 /*
  * 
  * Drawbacks
  * 1. Instantiated during class loading (It might not be required by client application)
- * 2. Exception handling facility is not provided as we need a block to handle exceptions
+ * Pros:
+ * 1. Exception handling facility is  provided .
  */
 public class Singleton 
 {
-	private static final Singleton INSTANCE=new Singleton();
+	private static Singleton INSTANCE=null;
 	//Private Constructor--> so that it can't be invoked outside the class
 	//Other classes can't create instance of this class
+ 
 	private Singleton()
 	{
 		
 	}
 	
+	static {
+		try {
+			if(INSTANCE==null)
+				INSTANCE=new Singleton();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 	public static Singleton getInstance()
 	{
 		return INSTANCE;
